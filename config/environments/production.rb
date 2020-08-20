@@ -12,7 +12,7 @@ Rails.application.configure do
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.delivery_method = :smtp
   host = 'railstuto2.herokuapp.com'
   config.action_mailer.default_url_options = { host: host }
     ActionMailer::Base.smtp_settings = {
@@ -24,6 +24,12 @@ Rails.application.configure do
     :domain => 'heroku.com',
     :enable_starttls_auto => true
   }
+
+# If not everyone on the team is using vagrant
+  config.action_mailer.delivery_method = ENV['USER'] == 'vagrant' ? :letter_opener_web : :letter_opener
+  host = 'railstuto2.herokuapp.com' # Don't use this literally; use your local dev host instead
+# Use this on the cloud IDE.
+  config.action_mailer.default_url_options = { host: host, protocol: 'http' }
   # Store uploaded files on Amazon AWS.
   config.active_storage.service = :amazon
   # Full error reports are disabled and caching is turned on.

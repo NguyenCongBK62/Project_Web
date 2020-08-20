@@ -14,6 +14,13 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   resources :account_activations, only: [:edit]
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  mount LetterOpenerWeb::Engine, at: "/inbox" if Rails.env.production?
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :articles, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
 end

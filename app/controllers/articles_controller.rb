@@ -3,20 +3,26 @@ class ArticlesController < ApplicationController
     before_action :correct_user, only: :destroy
     def create
         @article = current_user.articles.build(article_params)
-        @article.image.attach(params[:article][:image])
+        # @article.image.attach(params[:article][:image])
         if @article.save
             flash[:success] = "article created!"
+            @feed_items = current_user.feed.paginate(page: params[:page])
             redirect_to root_url
         else
+            flash[:success] = "article created fails!"
             @feed_items = current_user.feed.paginate(page: params[:page])
             render 'static_pages/home'
         end
     end
 
     def destroy
-        @article.destroy
-        flash[:success] = "article deleted"
-        redirect_to request.referrer || root_url
+        if  @article.destroy
+            flash[:success] = "article deleted"
+            redirect_to request.referrer || root_url
+        else 
+            flash[:danger] = "delete fails"
+            render 'static_pages/home'
+        end
     end
     private
     def article_params
@@ -25,12 +31,5 @@ class ArticlesController < ApplicationController
     def correct_user
         @article = current_user.articles.find_by(id: params[:id])
         redirect_to root_url if @article.nil?
-    end
-    def logged_in_user
-        unless logged_in?
-          store_location
-          flash[:danger] = "Please log in."
-          redirect_to login_url
-        end
     end
 end
