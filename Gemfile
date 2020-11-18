@@ -3,6 +3,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
+gem 'devise'
+gem 'acts_as_votable'
+gem 'toastr-rails'
+gem 'closure_tree'
+gem 'acts-as-taggable-on'
+#Action Store gem
+gem 'action-store'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 gem 'image_processing', '1.9.3'
