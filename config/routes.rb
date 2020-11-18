@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # devise_for :users, controllers: {registrations: "users_devise/registrations"}
   #devise_for :installs
-  devise_for :users, controllers: {omniauth_callbacks: :callbacks}
+  #devise_for :users, controllers: {omniauth_callbacks: :callbacks}
   get 'password_resets/new'
   get 'password_resets/edit'
   get 'sessions/new'
