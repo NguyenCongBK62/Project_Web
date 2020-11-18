@@ -1,4 +1,5 @@
 <li id="article-<%= article.id %>">
+<<<<<<< Updated upstream
 <%= link_to gravatar_for(article.user, size: 50), article.user %>
 <span class="user"><%= link_to article.user.name, article.user %></span>
 <span class="content">
@@ -11,4 +12,19 @@ Posted <%= time_ago_in_words(article.created_at) %> ago.
 <%= link_to "delete", article, method: :delete,data: { confirm: "You sure?" } %>
 <% end %>
 </span>
+=======
+    <%= link_to gravatar_for(article.user, size: 50), article.user %>
+    <span class="user"><%= link_to article.user.name, article.user %></span>
+    <span class="content">
+        <%= article.content %>
+        <%= image_tag article.image_url.to_s %>
+    </span>
+    <span class="timestamp">
+        <%= render "vote_form", article: article %>
+        Posted <%= time_ago_in_words(article.created_at) %> ago.
+        <% if current_user?(article.user) %>
+            <%= link_to "delete", article, method: :delete,data: { confirm: "You sure?" } %>
+        <% end %>
+    </span>
+>>>>>>> Stashed changes
 </li>
